@@ -1,0 +1,33 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "dev.silicium.client.mixin",
+	"plugin": "dev.silicium.compat.SiliciumMixinPlugin",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"core.ClientFrameMetricsMixin",
+		"core.ClientCommandMixin",
+		"lightmap.LightmapCacheMixin",
+		"render.WeatherEffectRendererMixin",
+		"particle.ParticleAccessor",
+		"particle.QuadParticleCullingMixin",
+		"particle.ParticleSpawnOptMixin",
+		"particle.ParticlePhysicsOptMixin",
+		"particle.ClientAnimateTickMixin",
+		"cull.EntityOcclusionMixin",
+		"cull.BlockEntityOcclusionMixin",
+		"cull.SignTextCullingMixin",
+		"cull.EntityShadowOptMixin",
+		"hud.DebugScreenOverlayMixin",
+		"hud.StringSplitterWidthCacheMixin",
+		"hud.RichTextWidthCacheMixin",
+		"hud.FontManagerReloadMixin",
+		"sound.SoundEngineOptMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

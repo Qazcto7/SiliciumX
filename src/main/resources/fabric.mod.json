@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "silicium",
+	"version": "${version}",
+	"name": "Silicium",
+	"description": "Universal, vanilla-faithful CPU, GPU, and memory performance mod for Fabric 26.3. Sodium-friendly with automatic companion-mod conflict avoidance.",
+	"authors": [
+		"Qazcto7"
+	],
+	"license": "MIT",
+	"icon": "assets/silicium/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.silicium.SiliciumMod"
+		],
+		"client": [
+			"dev.silicium.client.SiliciumClientMod"
+		],
+		"modmenu": [
+			"dev.silicium.client.compat.SiliciumModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"silicium.mixins.json",
+		{
+			"config": "silicium.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25"
+	},
+	"suggests": {
+		"sodium": "*",
+		"modmenu": "*"
+	}
+}
