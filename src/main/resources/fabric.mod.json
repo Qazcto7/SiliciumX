@@ -1,30 +1,35 @@
 {
 	"schemaVersion": 1,
-	"id": "silicium",
+	"id": "siliciumx",
 	"version": "${version}",
-	"name": "Silicium",
+	"name": "SiliciumX",
 	"description": "Universal, vanilla-faithful CPU, GPU, and memory performance mod for Fabric 26.3. Sodium-friendly with automatic companion-mod conflict avoidance.",
 	"authors": [
 		"Qazcto7"
 	],
+	"contact": {
+		"homepage": "https://github.com/Qazcto7/SiliciumX",
+		"sources": "https://github.com/Qazcto7/SiliciumX",
+		"issues": "https://github.com/Qazcto7/SiliciumX/issues"
+	},
 	"license": "MIT",
-	"icon": "assets/silicium/icon.png",
+	"icon": "assets/siliciumx/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"dev.silicium.SiliciumMod"
+			"dev.siliciumx.SiliciumXMod"
 		],
 		"client": [
-			"dev.silicium.client.SiliciumClientMod"
+			"dev.siliciumx.client.SiliciumXClientMod"
 		],
 		"modmenu": [
-			"dev.silicium.client.compat.SiliciumModMenuIntegration"
+			"dev.siliciumx.client.compat.SiliciumXModMenuIntegration"
 		]
 	},
 	"mixins": [
-		"silicium.mixins.json",
+		"siliciumx.mixins.json",
 		{
-			"config": "silicium.client.mixins.json",
+			"config": "siliciumx.client.mixins.json",
 			"environment": "client"
 		}
 	],

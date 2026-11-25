@@ -1,0 +1,32 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "dev.siliciumx.mixin",
+	"plugin": "dev.siliciumx.compat.SiliciumXMixinPlugin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"core.CommandsMixin",
+		"core.ServerTickMetricsMixin",
+		"math.FastSineLutMixin",
+		"biome.BiomeManagerMixin",
+		"worldgen.GradientNoiseAccessor",
+		"worldgen.GradientNoiseMixin",
+		"worldgen.PerlinNoiseMixin",
+		"chunk.ServerChunkCacheMixin",
+		"occlusion.BlockOcclusionCacheMixin",
+		"occlusion.ShapesFaceOcclusionMixin",
+		"entity.AttributeInstanceMixin",
+		"ai.WalkNodeEvaluatorMixin",
+		"hopper.HopperBlockEntityMixin",
+		"memory.BlockStateCacheAccessor",
+		"memory.BlockStateBaseCacheMixin",
+		"memory.CompoundTagKeyDedupMixin",
+		"memory.StringTagDedupMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

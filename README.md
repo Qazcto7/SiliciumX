@@ -1,6 +1,6 @@
-# Silicium — Universal Performance Mod for Minecraft (Fabric 26.3)
+# SiliciumX — Universal Performance Mod for Minecraft (Fabric 26.3)
 
-**Silicium** is a universal, **Vanilla-faithful**, drop-in performance mod for **Minecraft 26.3 (Fabric)** that targets **CPU, GPU, and memory bottlenecks** together while remaining **100% Sodium-friendly** and automatically avoiding conflicts with companion optimization mods.
+**SiliciumX** is a universal, **Vanilla-faithful**, drop-in performance mod for **Minecraft 26.3 (Fabric)** that targets **CPU, GPU, and memory bottlenecks** together while remaining **100% Sodium-friendly** and automatically avoiding conflicts with companion optimization mods.
 
 - **Minecraft:** `26.3`
 - **Fabric Loader:** `>= 0.19.5`
@@ -13,9 +13,9 @@
 
 - **Vanilla-Faithful:** Zero shortcuts that alter redstone contraptions, farms, mob physics, or visual integrity.
 - **Sodium-Friendly:** Never touches Sodium's chunk rendering engine; delivers smooth standalone gains and seamlessly complements Sodium (`0 conflicts`).
-- **Precision Auto-Compatibility:** Automatically detects installed optimization mods at Mixin-load time (`SiliciumMixinPlugin`) and only yields modules with exact method-level overlaps — keeping all complementary modules active even inside full optimization stacks. Also reads `config/lithium.properties` so if you disable a specific Lithium rule, Silicium automatically steps in.
-- **Granular Modular Control:** Every optimization supports `"auto"`, `"force"`, or `"off"` independently in `config/silicium.json`.
-- **Data-Driven:** Built-in zero-allocation MSPT / frame-time percentile telemetry (`mean / p50 / p95 / p99 / max`), per-module optimization counters, and an in-JVM microbenchmark (`/silicium bench`).
+- **Precision Auto-Compatibility:** Automatically detects installed optimization mods at Mixin-load time (`SiliciumXMixinPlugin`) and only yields modules with exact method-level overlaps — keeping all complementary modules active even inside full optimization stacks. Also reads `config/lithium.properties` so if you disable a specific Lithium rule, SiliciumX automatically steps in.
+- **Granular Modular Control:** Every optimization supports `"auto"`, `"force"`, or `"off"` independently in `config/siliciumx.json`.
+- **Data-Driven:** Built-in zero-allocation MSPT / frame-time percentile telemetry (`mean / p50 / p95 / p99 / max`), per-module optimization counters, and an in-JVM microbenchmark (`/siliciumx bench`).
 
 ---
 
@@ -56,7 +56,7 @@
 | `gpu.block_entity_occlusion_culling` | `BlockEntityRenderDispatcher` | Conservative 9-point 3D DDA solid-block occlusion culler for block entities (injects after renderer & range checks; skips off-screen renderers and moving pistons, and uses expanded bounds for banners, shulker boxes, and enchanting tables). | `entityculling`, `moreculling`, `betterblockentities`, `iris`, `oculus` |
 | `gpu.sign_and_shadow_culling` | `AbstractSignRenderer`, `EntityRenderer` | Eliminates blank, back-facing, and distant sign text passes, caps entity blob shadow extraction distance, and reuses chunk lookups across each entity's shadow footprint. | `moreculling`, `betterblockentities` |
 | `gpu.weather_culling` | `WeatherEffectRenderer` | Caches rain/snow column height, 3D biome precipitation, and skylight queries with staggered TTL and skips weather columns strictly behind the camera plane. | `iris`, `oculus` |
-| `gpu.hud_debug_cache` | `DebugScreenOverlay` | Throttles F3 debug overlay text rebuilding to 20 Hz (50 ms) while keeping F3 performance charts at full framerate, cutting F3 String/List GC churn by 10x–20x. Optionally displays a single-line `[Silicium]` summary when full F3 is open. | `badoptimizations`, `exordium` |
+| `gpu.hud_debug_cache` | `DebugScreenOverlay` | Throttles F3 debug overlay text rebuilding to 20 Hz (50 ms) while keeping F3 performance charts at full framerate, cutting F3 String/List GC churn by 10x–20x. Optionally displays a single-line `[SiliciumX]` summary when full F3 is open. | `badoptimizations`, `exordium` |
 | `gpu.text_width_cache` | `StringSplitter.stringWidth(String)` | Per-font 512-slot width cache (auto-invalidated on resource reload & font option updates via `FontManager`), eliminating per-call `MutableFloat` and lambda allocations across HUD, chat, F3, tooltips, and menus. | None (complementary) |
 | `gpu.rich_text_width_cache` | `StringSplitter.stringWidth(FormattedText)` | Per-font 512-slot immutable `(text/key, Style)` width cache for styled literals and zero-arg translations (buttons, labels, tooltips, chat, scoreboard, nametags), auto-invalidated on font & language reloads. | None (complementary) |
 | `client.animate_tick_opt` | `ClientLevel.doAnimateTick` | Eliminates 1,334 redundant `getFluidState` chunk/section lookups per client tick (26,680 lookups/sec) by reusing the `BlockState` already fetched at the exact same position. | `badoptimizations` |
@@ -65,7 +65,7 @@
 
 | Module ID | Target | Description |
 | :--- | :--- | :--- |
-| `diagnostics.telemetry` | `MinecraftServer`, `Minecraft`, `Commands` | Zero-allocation rolling MSPT & frame-time percentile tracking, live per-module counters, and the `/silicium` command suite. |
+| `diagnostics.telemetry` | `MinecraftServer`, `Minecraft`, `Commands` | Zero-allocation rolling MSPT & frame-time percentile tracking, live per-module counters, and the `/siliciumx` command suite. |
 
 ---
 
@@ -73,26 +73,26 @@
 
 | Command | Description |
 | :--- | :--- |
-| `/silicium` or `/silicium status` | Overview of version, active/forced/yielded/disabled modules, MSPT/TPS, and client frame time. |
-| `/silicium modules` | Per-module status list (`[ACTIVE]`, `[FORCE]`, `[YIELD -> <mod>]`, `[OFF]`) plus takeover notes. |
-| `/silicium compat` | Detected companion optimization mods (Sodium, Lithium, FerriteCore, ModernFix, ImmediatelyFast, C2ME, EntityCulling, Iris, BBE, etc.) and auto-yield report. |
-| `/silicium metrics` | Live MSPT (`mean/min/p50/p95/p99/max`), client frame times, and all active optimization counters. |
-| `/silicium metrics reset` | Resets rolling timing windows and counters for clean A/B comparisons. |
-| `/silicium bench` | Runs a quick in-JVM microbenchmark comparing Silicium algorithms against Vanilla baselines. |
-| `/silicium reload` | Reloads runtime tuning values from `config/silicium.json` without restarting. |
+| `/siliciumx` or `/siliciumx status` | Overview of version, active/forced/yielded/disabled modules, MSPT/TPS, and client frame time. |
+| `/siliciumx modules` | Per-module status list (`[ACTIVE]`, `[FORCE]`, `[YIELD -> <mod>]`, `[OFF]`) plus takeover notes. |
+| `/siliciumx compat` | Detected companion optimization mods (Sodium, Lithium, FerriteCore, ModernFix, ImmediatelyFast, C2ME, EntityCulling, Iris, BBE, etc.) and auto-yield report. |
+| `/siliciumx metrics` | Live MSPT (`mean/min/p50/p95/p99/max`), client frame times, and all active optimization counters. |
+| `/siliciumx metrics reset` | Resets rolling timing windows and counters for clean A/B comparisons. |
+| `/siliciumx bench` | Runs a quick in-JVM microbenchmark comparing SiliciumX algorithms against Vanilla baselines. |
+| `/siliciumx reload` | Reloads runtime tuning values from `config/siliciumx.json` without restarting. |
 
 ---
 
-## Configuration (`config/silicium.json` & Mod Menu)
+## Configuration (`config/siliciumx.json` & Mod Menu)
 
-Generated automatically on first launch. If **Mod Menu** is installed, Silicium provides a built-in native configuration screen (no Cloth Config or YACL required) with **General**, **Modules**, **Tuning**, and **Telemetry** tabs.
+Generated automatically on first launch. If **Mod Menu** is installed, SiliciumX provides a built-in native configuration screen (no Cloth Config or YACL required) with **General**, **Modules**, **Tuning**, and **Telemetry** tabs.
 
 Each entry under `modules` accepts:
 - `"auto"` — active unless an exact conflicting companion optimization is loaded and enabled.
 - `"force"` — always active regardless of companion mods.
 - `"off"` — disabled.
 
-Module mode changes apply on next restart; all `tuning` parameters reload live via **Save & Close** in Mod Menu or `/silicium reload`.
+Module mode changes apply on next restart; all `tuning` parameters reload live via **Save & Close** in Mod Menu or `/siliciumx reload`.
 
 ---
 
@@ -106,5 +106,5 @@ Module mode changes apply on next restart; all `tuning` parameters reload live v
 ./gradlew runAuditClient
 
 # Output JAR
-# build/libs/silicium-1.0.0+mc26.3.jar
+# build/libs/siliciumx-1.0.0+mc26.3.jar
 ```
