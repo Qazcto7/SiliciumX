@@ -146,6 +146,22 @@ public enum SiliciumXModule {
 		null,
 		"Eliminates blank, back-facing, and distant sign text passes and optimizes entity shadow extraction"
 	),
+	GPU_NAMETAG_AND_LAYER_CULLING(
+		"gpu.nametag_and_layer_culling",
+		Category.GPU,
+		Environment.CLIENT,
+		List.of("moreculling", "iris", "oculus"),
+		null,
+		"Distance-culls distant entity nametags (preserving crosshair target) and distant cosmetic layers (capes, held items, non-player mob armor)"
+	),
+	GPU_ITEM_GLINT_AND_LOD_CULLING(
+		"gpu.item_glint_and_lod_culling",
+		Category.GPU,
+		Environment.CLIENT,
+		List.of("moreculling", "iris", "oculus"),
+		null,
+		"Strips sub-pixel enchant glint on distant dropped items and item frames, simplifies distant item clusters, and culls far non-map item frame models"
+	),
 	GPU_WEATHER_CULLING(
 		"gpu.weather_culling",
 		Category.GPU,
@@ -161,6 +177,14 @@ public enum SiliciumXModule {
 		List.of("badoptimizations", "exordium"),
 		null,
 		"Throttles F3 debug overlay text rebuilding to 20 Hz (cutting F3 String/List GC) + optional SiliciumX line"
+	),
+	GPU_HUD_SCOREBOARD_TAB_CACHE(
+		"gpu.hud_scoreboard_tab_cache",
+		Category.GPU,
+		Environment.CLIENT,
+		List.of("exordium", "badoptimizations"),
+		null,
+		"Caches multiplayer scoreboard sidebar layout (invalidated instantly on scoreboard edits) and player Tab list sorting/display names"
 	),
 	GPU_TEXT_WIDTH_CACHE(
 		"gpu.text_width_cache",
@@ -201,6 +225,22 @@ public enum SiliciumXModule {
 		List.of("entityculling", "moreculling", "iris", "oculus"),
 		null,
 		"Offloads 9-point entity and block-entity DDA occlusion raycasts to lock-free multi-core background worker threads"
+	),
+	CPU_THREAD_POOL_TUNING(
+		"cpu.thread_pool_tuning",
+		Category.CPU,
+		Environment.COMMON,
+		List.of("modernfix", "c2me", "smoothboot", "threadtweak"),
+		null,
+		"Balances Util background/IO worker thread counts and lowers worker priorities below Render/Server threads to prevent frame drops"
+	),
+	STARTUP_LAZY_DATAFIXER(
+		"startup.lazy_datafixer",
+		Category.CPU,
+		Environment.COMMON,
+		List.of("modernfix", "lazydfu", "fastload"),
+		null,
+		"Defers eager DataFixer bootstrap rule pre-optimization at launch while keeping on-demand world/chunk schema upgrades intact"
 	),
 	WORLDGEN_FAST_PERLIN_NOISE(
 		"worldgen.fast_perlin_noise",

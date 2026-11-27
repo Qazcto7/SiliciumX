@@ -238,11 +238,19 @@ public final class SiliciumXMetrics {
 		ASYNC_OCCLUSION_JOBS("Async occlusion raycasts offloaded"),
 		SIGN_TEXT_PASSES_SKIPPED("Sign text passes skipped"),
 		ENTITY_SHADOWS_OPTIMIZED("Entity shadows optimized"),
+		NAMETAGS_CULLED("Distant nametags culled"),
+		COSMETIC_LAYERS_CULLED("Distant cosmetic layers culled"),
+		ITEM_GLINTS_CULLED("Distant item glints culled"),
+		ITEM_STACKS_SIMPLIFIED("Distant item clusters simplified"),
+		ITEM_FRAME_ITEMS_CULLED("Distant item frame models culled"),
 		WEATHER_COLUMNS_SKIPPED("Weather columns cached/culled"),
 		DEBUG_HUD_REBUILDS_SKIPPED("F3 HUD rebuilds skipped"),
+		HUD_LAYOUTS_CACHED("Scoreboard/Tab HUD rebuilds skipped"),
 		TEXT_WIDTH_HITS("Text width cache hits"),
 		RICH_TEXT_WIDTH_HITS("Rich text width cache hits"),
-		SOUNDS_CULLED("Inaudible/spam sounds culled");
+		SOUNDS_CULLED("Inaudible/spam sounds culled"),
+		WORKER_THREADS_TUNED("Background worker threads tuned"),
+		DATAFIXER_OPT_SKIPPED("Eager DataFixer optimizations deferred");
 
 		private final String label;
 

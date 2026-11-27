@@ -49,11 +49,17 @@ public final class SiliciumXConfig {
 	public volatile double blockEntityCullingMinDistance = 8.0;
 	public volatile double signTextMaxRenderDistance = 32.0;
 	public volatile double entityShadowMaxDistance = 14.0;
+	public volatile double nameTagMaxDistance = 32.0;
+	public volatile double cosmeticLayerMaxDistance = 40.0;
+	public volatile double itemGlintMaxDistance = 24.0;
+	public volatile double itemFrameItemMaxDistance = 40.0;
+	public volatile boolean simplifyDistantItemStacks = true;
 	public volatile boolean cullWeatherBehindCamera = true;
 	public volatile int occlusionMaxRaySteps = 48;
 	public volatile int occlusionCacheFrames = 3;
 	public volatile float lightmapEpsilon = 0.002f;
 	public volatile int debugHudUpdateIntervalMs = 50;
+	public volatile int hudCacheUpdateIntervalMs = 50;
 	public volatile boolean showF3Summary = true;
 	public volatile int maxIdenticalSoundsPerTick = 4;
 
@@ -68,6 +74,10 @@ public final class SiliciumXConfig {
 	private volatile double blockEntityCullingMinDistanceSq = 8.0 * 8.0;
 	private volatile double signTextMaxRenderDistanceSq = 32.0 * 32.0;
 	private volatile double entityShadowMaxDistanceSq = 14.0 * 14.0;
+	private volatile double nameTagMaxDistanceSq = 32.0 * 32.0;
+	private volatile double cosmeticLayerMaxDistanceSq = 40.0 * 40.0;
+	private volatile double itemGlintMaxDistanceSq = 24.0 * 24.0;
+	private volatile double itemFrameItemMaxDistanceSq = 40.0 * 40.0;
 
 	public static Map<String, SiliciumXModule.Mode> createDefaultModulesMap() {
 		Map<String, SiliciumXModule.Mode> map = new LinkedHashMap<>();
@@ -182,11 +192,17 @@ public final class SiliciumXConfig {
 		current.blockEntityCullingMinDistance = fresh.blockEntityCullingMinDistance;
 		current.signTextMaxRenderDistance = fresh.signTextMaxRenderDistance;
 		current.entityShadowMaxDistance = fresh.entityShadowMaxDistance;
+		current.nameTagMaxDistance = fresh.nameTagMaxDistance;
+		current.cosmeticLayerMaxDistance = fresh.cosmeticLayerMaxDistance;
+		current.itemGlintMaxDistance = fresh.itemGlintMaxDistance;
+		current.itemFrameItemMaxDistance = fresh.itemFrameItemMaxDistance;
+		current.simplifyDistantItemStacks = fresh.simplifyDistantItemStacks;
 		current.cullWeatherBehindCamera = fresh.cullWeatherBehindCamera;
 		current.occlusionMaxRaySteps = fresh.occlusionMaxRaySteps;
 		current.occlusionCacheFrames = fresh.occlusionCacheFrames;
 		current.lightmapEpsilon = fresh.lightmapEpsilon;
 		current.debugHudUpdateIntervalMs = fresh.debugHudUpdateIntervalMs;
+		current.hudCacheUpdateIntervalMs = fresh.hudCacheUpdateIntervalMs;
 		current.showF3Summary = fresh.showF3Summary;
 		current.maxIdenticalSoundsPerTick = fresh.maxIdenticalSoundsPerTick;
 		current.sanitize();
@@ -210,11 +226,17 @@ public final class SiliciumXConfig {
 		copy.blockEntityCullingMinDistance = this.blockEntityCullingMinDistance;
 		copy.signTextMaxRenderDistance = this.signTextMaxRenderDistance;
 		copy.entityShadowMaxDistance = this.entityShadowMaxDistance;
+		copy.nameTagMaxDistance = this.nameTagMaxDistance;
+		copy.cosmeticLayerMaxDistance = this.cosmeticLayerMaxDistance;
+		copy.itemGlintMaxDistance = this.itemGlintMaxDistance;
+		copy.itemFrameItemMaxDistance = this.itemFrameItemMaxDistance;
+		copy.simplifyDistantItemStacks = this.simplifyDistantItemStacks;
 		copy.cullWeatherBehindCamera = this.cullWeatherBehindCamera;
 		copy.occlusionMaxRaySteps = this.occlusionMaxRaySteps;
 		copy.occlusionCacheFrames = this.occlusionCacheFrames;
 		copy.lightmapEpsilon = this.lightmapEpsilon;
 		copy.debugHudUpdateIntervalMs = this.debugHudUpdateIntervalMs;
+		copy.hudCacheUpdateIntervalMs = this.hudCacheUpdateIntervalMs;
 		copy.showF3Summary = this.showF3Summary;
 		copy.maxIdenticalSoundsPerTick = this.maxIdenticalSoundsPerTick;
 		copy.chunkLookupCacheSize = this.chunkLookupCacheSize;
@@ -240,11 +262,17 @@ public final class SiliciumXConfig {
 		live.blockEntityCullingMinDistance = draft.blockEntityCullingMinDistance;
 		live.signTextMaxRenderDistance = draft.signTextMaxRenderDistance;
 		live.entityShadowMaxDistance = draft.entityShadowMaxDistance;
+		live.nameTagMaxDistance = draft.nameTagMaxDistance;
+		live.cosmeticLayerMaxDistance = draft.cosmeticLayerMaxDistance;
+		live.itemGlintMaxDistance = draft.itemGlintMaxDistance;
+		live.itemFrameItemMaxDistance = draft.itemFrameItemMaxDistance;
+		live.simplifyDistantItemStacks = draft.simplifyDistantItemStacks;
 		live.cullWeatherBehindCamera = draft.cullWeatherBehindCamera;
 		live.occlusionMaxRaySteps = draft.occlusionMaxRaySteps;
 		live.occlusionCacheFrames = draft.occlusionCacheFrames;
 		live.lightmapEpsilon = draft.lightmapEpsilon;
 		live.debugHudUpdateIntervalMs = draft.debugHudUpdateIntervalMs;
+		live.hudCacheUpdateIntervalMs = draft.hudCacheUpdateIntervalMs;
 		live.showF3Summary = draft.showF3Summary;
 		live.maxIdenticalSoundsPerTick = draft.maxIdenticalSoundsPerTick;
 		live.chunkLookupCacheSize = draft.chunkLookupCacheSize;
@@ -329,11 +357,17 @@ public final class SiliciumXConfig {
 		this.blockEntityCullingMinDistance = getDouble(tuning, "blockEntityCullingMinDistance", this.blockEntityCullingMinDistance);
 		this.signTextMaxRenderDistance = getDouble(tuning, "signTextMaxRenderDistance", this.signTextMaxRenderDistance);
 		this.entityShadowMaxDistance = getDouble(tuning, "entityShadowMaxDistance", this.entityShadowMaxDistance);
+		this.nameTagMaxDistance = getDouble(tuning, "nameTagMaxDistance", this.nameTagMaxDistance);
+		this.cosmeticLayerMaxDistance = getDouble(tuning, "cosmeticLayerMaxDistance", this.cosmeticLayerMaxDistance);
+		this.itemGlintMaxDistance = getDouble(tuning, "itemGlintMaxDistance", this.itemGlintMaxDistance);
+		this.itemFrameItemMaxDistance = getDouble(tuning, "itemFrameItemMaxDistance", this.itemFrameItemMaxDistance);
+		this.simplifyDistantItemStacks = getBool(tuning, "simplifyDistantItemStacks", this.simplifyDistantItemStacks);
 		this.cullWeatherBehindCamera = getBool(tuning, "cullWeatherBehindCamera", this.cullWeatherBehindCamera);
 		this.occlusionMaxRaySteps = getInt(tuning, "occlusionMaxRaySteps", this.occlusionMaxRaySteps);
 		this.occlusionCacheFrames = getInt(tuning, "occlusionCacheFrames", this.occlusionCacheFrames);
 		this.lightmapEpsilon = getFloat(tuning, "lightmapEpsilon", this.lightmapEpsilon);
 		this.debugHudUpdateIntervalMs = getInt(tuning, "debugHudUpdateIntervalMs", this.debugHudUpdateIntervalMs);
+		this.hudCacheUpdateIntervalMs = getInt(tuning, "hudCacheUpdateIntervalMs", this.hudCacheUpdateIntervalMs);
 		this.showF3Summary = getBool(tuning, "showF3Summary", this.showF3Summary);
 		this.maxIdenticalSoundsPerTick = getInt(tuning, "maxIdenticalSoundsPerTick", this.maxIdenticalSoundsPerTick);
 		this.chunkLookupCacheSize = getInt(tuning, "chunkLookupCacheSize", this.chunkLookupCacheSize);
@@ -342,6 +376,12 @@ public final class SiliciumXConfig {
 			|| !tuning.has("particlePhysicsMaxDistance")
 			|| !tuning.has("signTextMaxRenderDistance")
 			|| !tuning.has("entityShadowMaxDistance")
+			|| !tuning.has("nameTagMaxDistance")
+			|| !tuning.has("cosmeticLayerMaxDistance")
+			|| !tuning.has("itemGlintMaxDistance")
+			|| !tuning.has("itemFrameItemMaxDistance")
+			|| !tuning.has("simplifyDistantItemStacks")
+			|| !tuning.has("hudCacheUpdateIntervalMs")
 			|| !tuning.has("cullWeatherBehindCamera")
 			|| !tuning.has("maxIdenticalSoundsPerTick")
 		) {
@@ -371,11 +411,17 @@ public final class SiliciumXConfig {
 		tuning.addProperty("blockEntityCullingMinDistance", this.blockEntityCullingMinDistance);
 		tuning.addProperty("signTextMaxRenderDistance", this.signTextMaxRenderDistance);
 		tuning.addProperty("entityShadowMaxDistance", this.entityShadowMaxDistance);
+		tuning.addProperty("nameTagMaxDistance", this.nameTagMaxDistance);
+		tuning.addProperty("cosmeticLayerMaxDistance", this.cosmeticLayerMaxDistance);
+		tuning.addProperty("itemGlintMaxDistance", this.itemGlintMaxDistance);
+		tuning.addProperty("itemFrameItemMaxDistance", this.itemFrameItemMaxDistance);
+		tuning.addProperty("simplifyDistantItemStacks", this.simplifyDistantItemStacks);
 		tuning.addProperty("cullWeatherBehindCamera", this.cullWeatherBehindCamera);
 		tuning.addProperty("occlusionMaxRaySteps", this.occlusionMaxRaySteps);
 		tuning.addProperty("occlusionCacheFrames", this.occlusionCacheFrames);
 		tuning.addProperty("lightmapEpsilon", this.lightmapEpsilon);
 		tuning.addProperty("debugHudUpdateIntervalMs", this.debugHudUpdateIntervalMs);
+		tuning.addProperty("hudCacheUpdateIntervalMs", this.hudCacheUpdateIntervalMs);
 		tuning.addProperty("showF3Summary", this.showF3Summary);
 		tuning.addProperty("maxIdenticalSoundsPerTick", this.maxIdenticalSoundsPerTick);
 		tuning.addProperty("chunkLookupCacheSize", this.chunkLookupCacheSize);
@@ -391,10 +437,15 @@ public final class SiliciumXConfig {
 		this.blockEntityCullingMinDistance = clamp(this.blockEntityCullingMinDistance, 4.0, 64.0);
 		this.signTextMaxRenderDistance = clamp(this.signTextMaxRenderDistance, 8.0, 128.0);
 		this.entityShadowMaxDistance = clamp(this.entityShadowMaxDistance, 4.0, 16.0);
+		this.nameTagMaxDistance = clamp(this.nameTagMaxDistance, 8.0, 64.0);
+		this.cosmeticLayerMaxDistance = clamp(this.cosmeticLayerMaxDistance, 12.0, 128.0);
+		this.itemGlintMaxDistance = clamp(this.itemGlintMaxDistance, 6.0, 128.0);
+		this.itemFrameItemMaxDistance = clamp(this.itemFrameItemMaxDistance, 12.0, 128.0);
 		this.occlusionMaxRaySteps = Math.max(8, Math.min(128, this.occlusionMaxRaySteps));
 		this.occlusionCacheFrames = Math.max(1, Math.min(10, this.occlusionCacheFrames));
 		this.lightmapEpsilon = (float) clamp(this.lightmapEpsilon, 0.0, 0.01);
 		this.debugHudUpdateIntervalMs = Math.max(0, Math.min(500, this.debugHudUpdateIntervalMs));
+		this.hudCacheUpdateIntervalMs = Math.max(0, Math.min(500, this.hudCacheUpdateIntervalMs));
 		this.maxIdenticalSoundsPerTick = Math.max(0, Math.min(32, this.maxIdenticalSoundsPerTick));
 		this.chunkLookupCacheSize = Math.max(16, Math.min(1024, this.chunkLookupCacheSize));
 
@@ -406,6 +457,10 @@ public final class SiliciumXConfig {
 		this.blockEntityCullingMinDistanceSq = this.blockEntityCullingMinDistance * this.blockEntityCullingMinDistance;
 		this.signTextMaxRenderDistanceSq = this.signTextMaxRenderDistance * this.signTextMaxRenderDistance;
 		this.entityShadowMaxDistanceSq = this.entityShadowMaxDistance * this.entityShadowMaxDistance;
+		this.nameTagMaxDistanceSq = this.nameTagMaxDistance * this.nameTagMaxDistance;
+		this.cosmeticLayerMaxDistanceSq = this.cosmeticLayerMaxDistance * this.cosmeticLayerMaxDistance;
+		this.itemGlintMaxDistanceSq = this.itemGlintMaxDistance * this.itemGlintMaxDistance;
+		this.itemFrameItemMaxDistanceSq = this.itemFrameItemMaxDistance * this.itemFrameItemMaxDistance;
 	}
 
 	public SiliciumXModule.Mode moduleMode(SiliciumXModule module) {
@@ -443,6 +498,22 @@ public final class SiliciumXConfig {
 
 	public double entityShadowMaxDistanceSq() {
 		return this.entityShadowMaxDistanceSq;
+	}
+
+	public double nameTagMaxDistanceSq() {
+		return this.nameTagMaxDistanceSq;
+	}
+
+	public double cosmeticLayerMaxDistanceSq() {
+		return this.cosmeticLayerMaxDistanceSq;
+	}
+
+	public double itemGlintMaxDistanceSq() {
+		return this.itemGlintMaxDistanceSq;
+	}
+
+	public double itemFrameItemMaxDistanceSq() {
+		return this.itemFrameItemMaxDistanceSq;
 	}
 
 	private static boolean getBool(JsonObject obj, String key, boolean fallback) {

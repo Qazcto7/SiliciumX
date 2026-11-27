@@ -273,6 +273,49 @@ public final class SiliciumXConfigScreen extends Screen {
 			v -> this.draft.entityShadowMaxDistance = v
 		);
 
+		this.optionList.addSliderRow(
+			"NameTag Max Distance",
+			"Maximum distance (blocks) to render floating entity nametags (crosshair target is always shown).",
+			8.0, 64.0, 4.0,
+			this.draft.nameTagMaxDistance,
+			v -> String.format(Locale.ROOT, "%.0f blocks", v),
+			v -> this.draft.nameTagMaxDistance = v
+		);
+
+		this.optionList.addSliderRow(
+			"Cosmetic Layer Max Distance",
+			"Maximum distance (blocks) to render capes, held items, and non-player mob armor (player armor stays visible).",
+			12.0, 128.0, 4.0,
+			this.draft.cosmeticLayerMaxDistance,
+			v -> String.format(Locale.ROOT, "%.0f blocks", v),
+			v -> this.draft.cosmeticLayerMaxDistance = v
+		);
+
+		this.optionList.addSliderRow(
+			"Item Glint Max Distance",
+			"Maximum distance (blocks) to render enchantment glint on dropped items and non-map item frames.",
+			6.0, 128.0, 2.0,
+			this.draft.itemGlintMaxDistance,
+			v -> String.format(Locale.ROOT, "%.0f blocks", v),
+			v -> this.draft.itemGlintMaxDistance = v
+		);
+
+		this.optionList.addSliderRow(
+			"Item Frame Model Max Distance",
+			"Maximum distance (blocks) to render interior item models inside non-map item frames (maps are never culled).",
+			12.0, 128.0, 4.0,
+			this.draft.itemFrameItemMaxDistance,
+			v -> String.format(Locale.ROOT, "%.0f blocks", v),
+			v -> this.draft.itemFrameItemMaxDistance = v
+		);
+
+		this.optionList.addToggleRow(
+			"Simplify Distant Item Clusters",
+			"Renders distant stacked dropped items as a single model beyond Item Glint Max Distance.",
+			this.draft.simplifyDistantItemStacks,
+			val -> this.draft.simplifyDistantItemStacks = val
+		);
+
 		this.optionList.addToggleRow(
 			"Cull Weather Behind Camera",
 			"Skips rain/snow columns strictly behind the camera plane with a conservative margin.",
@@ -316,6 +359,15 @@ public final class SiliciumXConfigScreen extends Screen {
 			this.draft.debugHudUpdateIntervalMs,
 			v -> v <= 0.5 ? "Every frame" : String.format(Locale.ROOT, "%d ms", (int) Math.round(v)),
 			v -> this.draft.debugHudUpdateIntervalMs = (int) Math.round(v)
+		);
+
+		this.optionList.addSliderRow(
+			"Scoreboard & Tab Cache Interval",
+			"Milliseconds between Tab list re-sorts (0 = disable HUD cache; scoreboard invalidates immediately on edits).",
+			0.0, 500.0, 10.0,
+			this.draft.hudCacheUpdateIntervalMs,
+			v -> v <= 0.5 ? "Disabled" : String.format(Locale.ROOT, "%d ms", (int) Math.round(v)),
+			v -> this.draft.hudCacheUpdateIntervalMs = (int) Math.round(v)
 		);
 
 		this.optionList.addToggleRow(

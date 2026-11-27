@@ -19,9 +19,9 @@
 
 ---
 
-## Module Architecture (26 Modules)
+## Module Architecture (31 Modules)
 
-### 1. CPU, Worldgen & Audio Optimizations (Logic, Tick, Noise & Sound)
+### 1. CPU, Worldgen, Startup & Audio Optimizations (Logic, Tick, Noise, Threads & Sound)
 
 | Module ID | Target | Description | Auto-Yields To |
 | :--- | :--- | :--- | :--- |
@@ -36,6 +36,8 @@
 | `cpu.hopper_fast_scan` | `HopperBlockEntity` | Eliminates iterator churn in `inventoryFull()` and short-circuits `suckInItems` slot scanning when the source container above is empty, preserving exact Vanilla cooldowns. | `lithium` (`mixin.block.hopper`) |
 | `client.sound_engine_opt` | `SoundEngine.play` | Skips inaudible one-shot sounds strictly beyond their OpenAL attenuation radius before `ChannelAccess.createHandle().join()` stalls the render thread, and caps same-tick identical sound spam (leaving music, UI, streaming, subtitles, and looping sounds untouched). | `sound_physics_remastered` |
 | `client.async_occlusion_worker` | `AsyncOcclusionEngine` | Multi-core wait-free worker engine offloading 9-point entity and block-entity DDA occlusion raycasts off the Render Thread (falls back seamlessly to synchronous raycasting if disabled). | `entityculling`, `moreculling`, `iris`, `oculus` |
+| `cpu.thread_pool_tuning` | `Util` (`ForkJoinPool`, IO executors) | Balances background executor thread counts (respecting `-Dmax.bg.threads`) and lowers background/IO worker priorities below the Render and Server threads to prevent frame drops. | `modernfix`, `c2me`, `smoothboot`, `threadtweak` |
+| `startup.lazy_datafixer` | `DataFixers.optimize` | Defers eager startup DataFixerUpper rule compilation while keeping on-demand world/chunk schema upgrades 100% intact, cutting launch CPU time and unused rule memory. | `modernfix`, `lazydfu`, `fastload` |
 
 ### 2. Memory Optimizations (RAM & GC Pressure)
 
@@ -55,8 +57,11 @@
 | `gpu.entity_occlusion_culling` | `LevelExtractor` | Conservative 9-point (center + 8 expanded AABB corners) 3D DDA solid-block occlusion culler for entities with short-TTL visibility caching. Players, bosses, vehicles, displays, and glowing/named/leashed entities are never culled. | `entityculling`, `moreculling`, `iris`, `oculus` |
 | `gpu.block_entity_occlusion_culling` | `BlockEntityRenderDispatcher` | Conservative 9-point 3D DDA solid-block occlusion culler for block entities (injects after renderer & range checks; skips off-screen renderers and moving pistons, and uses expanded bounds for banners, shulker boxes, and enchanting tables). | `entityculling`, `moreculling`, `betterblockentities`, `iris`, `oculus` |
 | `gpu.sign_and_shadow_culling` | `AbstractSignRenderer`, `EntityRenderer` | Eliminates blank, back-facing, and distant sign text passes, caps entity blob shadow extraction distance, and reuses chunk lookups across each entity's shadow footprint. | `moreculling`, `betterblockentities` |
+| `gpu.nametag_and_layer_culling` | `EntityRenderer`, `CapeLayer`, `ItemInHandLayer`, `HumanoidArmorLayer` | Distance-culls overhead entity nametags (always keeping the crosshair target) and skips distant capes, held items, and non-player mob armor layers while preserving player armor for PvP clarity. | `moreculling`, `iris`, `oculus` |
+| `gpu.item_glint_and_lod_culling` | `ItemEntityRenderer`, `ItemFrameRenderer`, `ItemStackRenderState` | Strips sub-pixel enchantment glint on distant dropped items and non-map item frames, simplifies stacked distant item clusters, and skips tiny interior item models on far non-map frames (maps are never culled). | `moreculling`, `iris`, `oculus` |
 | `gpu.weather_culling` | `WeatherEffectRenderer` | Caches rain/snow column height, 3D biome precipitation, and skylight queries with staggered TTL and skips weather columns strictly behind the camera plane. | `iris`, `oculus` |
 | `gpu.hud_debug_cache` | `DebugScreenOverlay` | Throttles F3 debug overlay text rebuilding to 20 Hz (50 ms) while keeping F3 performance charts at full framerate, cutting F3 String/List GC churn by 10x–20x. Optionally displays a single-line `[SiliciumX]` summary when full F3 is open. | `badoptimizations`, `exordium` |
+| `gpu.hud_scoreboard_tab_cache` | `Hud`, `PlayerTabOverlay`, `Scoreboard` | Caches multiplayer sidebar scoreboard layouts (with instant invalidation on any scoreboard/team mutation) and player Tab-list sorting/display names to eliminate per-frame Stream and `Component.copy()` churn. | `exordium`, `badoptimizations` |
 | `gpu.text_width_cache` | `StringSplitter.stringWidth(String)` | Per-font 512-slot width cache (auto-invalidated on resource reload & font option updates via `FontManager`), eliminating per-call `MutableFloat` and lambda allocations across HUD, chat, F3, tooltips, and menus. | None (complementary) |
 | `gpu.rich_text_width_cache` | `StringSplitter.stringWidth(FormattedText)` | Per-font 512-slot immutable `(text/key, Style)` width cache for styled literals and zero-arg translations (buttons, labels, tooltips, chat, scoreboard, nametags), auto-invalidated on font & language reloads. | None (complementary) |
 | `client.animate_tick_opt` | `ClientLevel.doAnimateTick` | Eliminates 1,334 redundant `getFluidState` chunk/section lookups per client tick (26,680 lookups/sec) by reusing the `BlockState` already fetched at the exact same position. | `badoptimizations` |
@@ -106,5 +111,5 @@ Module mode changes apply on next restart; all `tuning` parameters reload live v
 ./gradlew runAuditClient
 
 # Output JAR
-# build/libs/siliciumx-1.0.0+mc26.3.jar
+# build/libs/siliciumx-1.1.0+mc26.3.jar
 ```

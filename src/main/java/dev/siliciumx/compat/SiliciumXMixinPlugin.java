@@ -33,6 +33,8 @@ public final class SiliciumXMixinPlugin implements IMixinConfigPlugin {
 		Map.entry("dev.siliciumx.mixin.entity.AttributeInstanceMixin", SiliciumXModule.CPU_ATTRIBUTE_FAST_CALC),
 		Map.entry("dev.siliciumx.mixin.ai.WalkNodeEvaluatorMixin", SiliciumXModule.CPU_PATHFINDING_ALLOC),
 		Map.entry("dev.siliciumx.mixin.hopper.HopperBlockEntityMixin", SiliciumXModule.CPU_HOPPER_FAST_SCAN),
+		Map.entry("dev.siliciumx.mixin.cpu.UtilThreadTuningMixin", SiliciumXModule.CPU_THREAD_POOL_TUNING),
+		Map.entry("dev.siliciumx.mixin.startup.DataFixersStartupMixin", SiliciumXModule.STARTUP_LAZY_DATAFIXER),
 
 		// Common Memory modules
 		Map.entry("dev.siliciumx.mixin.memory.BlockStateCacheAccessor", SiliciumXModule.MEMORY_BLOCKSTATE_CACHE_DEDUP),
@@ -53,8 +55,19 @@ public final class SiliciumXMixinPlugin implements IMixinConfigPlugin {
 		Map.entry("dev.siliciumx.client.mixin.cull.BlockEntityOcclusionMixin", SiliciumXModule.GPU_BLOCK_ENTITY_OCCLUSION_CULLING),
 		Map.entry("dev.siliciumx.client.mixin.cull.SignTextCullingMixin", SiliciumXModule.GPU_SIGN_AND_SHADOW_CULLING),
 		Map.entry("dev.siliciumx.client.mixin.cull.EntityShadowOptMixin", SiliciumXModule.GPU_SIGN_AND_SHADOW_CULLING),
+		Map.entry("dev.siliciumx.client.mixin.cull.EntityNameTagCullingMixin", SiliciumXModule.GPU_NAMETAG_AND_LAYER_CULLING),
+		Map.entry("dev.siliciumx.client.mixin.cull.CapeLayerCullingMixin", SiliciumXModule.GPU_NAMETAG_AND_LAYER_CULLING),
+		Map.entry("dev.siliciumx.client.mixin.cull.ItemInHandLayerCullingMixin", SiliciumXModule.GPU_NAMETAG_AND_LAYER_CULLING),
+		Map.entry("dev.siliciumx.client.mixin.cull.HumanoidArmorLayerCullingMixin", SiliciumXModule.GPU_NAMETAG_AND_LAYER_CULLING),
+		Map.entry("dev.siliciumx.client.mixin.cull.ItemLayerStateAccessor", SiliciumXModule.GPU_ITEM_GLINT_AND_LOD_CULLING),
+		Map.entry("dev.siliciumx.client.mixin.cull.ItemStackRenderStateMixin", SiliciumXModule.GPU_ITEM_GLINT_AND_LOD_CULLING),
+		Map.entry("dev.siliciumx.client.mixin.cull.ItemEntityOptMixin", SiliciumXModule.GPU_ITEM_GLINT_AND_LOD_CULLING),
+		Map.entry("dev.siliciumx.client.mixin.cull.ItemFrameOptMixin", SiliciumXModule.GPU_ITEM_GLINT_AND_LOD_CULLING),
 		Map.entry("dev.siliciumx.client.mixin.render.WeatherEffectRendererMixin", SiliciumXModule.GPU_WEATHER_CULLING),
 		Map.entry("dev.siliciumx.client.mixin.hud.DebugScreenOverlayMixin", SiliciumXModule.GPU_HUD_DEBUG_CACHE),
+		Map.entry("dev.siliciumx.client.mixin.hud.ScoreboardChangeTrackerMixin", SiliciumXModule.GPU_HUD_SCOREBOARD_TAB_CACHE),
+		Map.entry("dev.siliciumx.client.mixin.hud.ScoreboardSidebarCacheMixin", SiliciumXModule.GPU_HUD_SCOREBOARD_TAB_CACHE),
+		Map.entry("dev.siliciumx.client.mixin.hud.PlayerTabOverlayCacheMixin", SiliciumXModule.GPU_HUD_SCOREBOARD_TAB_CACHE),
 		Map.entry("dev.siliciumx.client.mixin.hud.StringSplitterWidthCacheMixin", SiliciumXModule.GPU_TEXT_WIDTH_CACHE),
 		Map.entry("dev.siliciumx.client.mixin.hud.RichTextWidthCacheMixin", SiliciumXModule.GPU_RICH_TEXT_WIDTH_CACHE),
 		Map.entry("dev.siliciumx.client.mixin.sound.SoundEngineOptMixin", SiliciumXModule.CLIENT_SOUND_ENGINE_OPT)
@@ -77,7 +90,8 @@ public final class SiliciumXMixinPlugin implements IMixinConfigPlugin {
 		ModCompatibility compat = this.compatibility != null ? this.compatibility : ModCompatibility.get();
 		if ("dev.siliciumx.client.mixin.hud.FontManagerReloadMixin".equals(mixinClassName)) {
 			return compat.isModuleActive(SiliciumXModule.GPU_TEXT_WIDTH_CACHE)
-				|| compat.isModuleActive(SiliciumXModule.GPU_RICH_TEXT_WIDTH_CACHE);
+				|| compat.isModuleActive(SiliciumXModule.GPU_RICH_TEXT_WIDTH_CACHE)
+				|| compat.isModuleActive(SiliciumXModule.GPU_HUD_SCOREBOARD_TAB_CACHE);
 		}
 		SiliciumXModule module = MIXIN_TO_MODULE.get(mixinClassName);
 		if (module == null) {

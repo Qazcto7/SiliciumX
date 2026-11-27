@@ -8,6 +8,7 @@ package dev.siliciumx.client;
 public final class SiliciumXClientState {
 	private static long frameCounter;
 	private static volatile int fontEpoch;
+	private static volatile long scoreboardEpoch;
 	private static boolean cameraValid;
 	private static double cameraX;
 	private static double cameraY;
@@ -57,5 +58,13 @@ public final class SiliciumXClientState {
 
 	public static void invalidateFontCaches() {
 		fontEpoch++;
+	}
+
+	public static long scoreboardEpoch() {
+		return scoreboardEpoch;
+	}
+
+	public static void bumpScoreboardEpoch() {
+		scoreboardEpoch++;
 	}
 }

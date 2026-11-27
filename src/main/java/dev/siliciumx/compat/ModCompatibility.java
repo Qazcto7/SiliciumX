@@ -56,6 +56,10 @@ public final class ModCompatibility {
 		register(map, "nvidium", "Nvidium", "Mesh-shader terrain renderer (complementary)");
 		register(map, "sound_physics_remastered", "Sound Physics Remastered", "Acoustic raytracing & reverb sound engine");
 		register(map, "fastmath", "FastMath", "Alternative sine/cosine LUT");
+		register(map, "smoothboot", "Smooth Boot", "Background worker thread pool & priority scheduling");
+		register(map, "threadtweak", "ThreadTweak", "Background worker thread pool & priority scheduling");
+		register(map, "lazydfu", "LazyDFU", "Deferred DataFixerUpper rule compilation at startup");
+		register(map, "fastload", "Fastload", "Startup and world-loading optimizations");
 		KNOWN_ECOSYSTEM_MODS = Collections.unmodifiableMap(map);
 	}
 

@@ -82,6 +82,7 @@ public abstract class ClientFrameMetricsMixin {
 			AsyncOcclusionEngine.clearAll();
 		}
 		SiliciumXClientState.clearCameraPosition();
+		SiliciumXClientState.bumpScoreboardEpoch();
 	}
 
 	@Inject(method = "close()V", at = @At("HEAD"))

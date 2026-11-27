@@ -18,6 +18,8 @@
 		"entity.AttributeInstanceMixin",
 		"ai.WalkNodeEvaluatorMixin",
 		"hopper.HopperBlockEntityMixin",
+		"cpu.UtilThreadTuningMixin",
+		"startup.DataFixersStartupMixin",
 		"memory.BlockStateCacheAccessor",
 		"memory.BlockStateBaseCacheMixin",
 		"memory.CompoundTagKeyDedupMixin",

@@ -63,6 +63,10 @@ class ConfigAndCompatibilityTest {
 		assertEquals("betterblockentities", compat.resolution(SiliciumXModule.GPU_BLOCK_ENTITY_OCCLUSION_CULLING).yieldedToMod());
 		assertFalse(compat.isModuleActive(SiliciumXModule.GPU_SIGN_AND_SHADOW_CULLING));
 		assertEquals("betterblockentities", compat.resolution(SiliciumXModule.GPU_SIGN_AND_SHADOW_CULLING).yieldedToMod());
+		assertFalse(compat.isModuleActive(SiliciumXModule.CPU_THREAD_POOL_TUNING));
+		assertEquals("modernfix", compat.resolution(SiliciumXModule.CPU_THREAD_POOL_TUNING).yieldedToMod());
+		assertFalse(compat.isModuleActive(SiliciumXModule.STARTUP_LAZY_DATAFIXER));
+		assertEquals("modernfix", compat.resolution(SiliciumXModule.STARTUP_LAZY_DATAFIXER).yieldedToMod());
 
 		// Method-level verified non-overlapping & white-space modules stay ACTIVE!
 		assertTrue(compat.isModuleActive(SiliciumXModule.CPU_FAST_BIOME_VORONOI));
@@ -76,15 +80,18 @@ class ConfigAndCompatibilityTest {
 		assertTrue(compat.isModuleActive(SiliciumXModule.GPU_PARTICLE_CULLING));
 		assertTrue(compat.isModuleActive(SiliciumXModule.CLIENT_PARTICLE_SPAWN_PHYSICS));
 		assertTrue(compat.isModuleActive(SiliciumXModule.GPU_ENTITY_OCCLUSION_CULLING));
+		assertTrue(compat.isModuleActive(SiliciumXModule.GPU_NAMETAG_AND_LAYER_CULLING));
+		assertTrue(compat.isModuleActive(SiliciumXModule.GPU_ITEM_GLINT_AND_LOD_CULLING));
 		assertTrue(compat.isModuleActive(SiliciumXModule.GPU_WEATHER_CULLING));
 		assertTrue(compat.isModuleActive(SiliciumXModule.GPU_HUD_DEBUG_CACHE));
+		assertTrue(compat.isModuleActive(SiliciumXModule.GPU_HUD_SCOREBOARD_TAB_CACHE));
 		assertTrue(compat.isModuleActive(SiliciumXModule.GPU_TEXT_WIDTH_CACHE));
 		assertTrue(compat.isModuleActive(SiliciumXModule.GPU_RICH_TEXT_WIDTH_CACHE));
 		assertTrue(compat.isModuleActive(SiliciumXModule.CLIENT_ANIMATE_TICK_OPT));
 		assertTrue(compat.isModuleActive(SiliciumXModule.CLIENT_SOUND_ENGINE_OPT));
 		assertTrue(compat.isModuleActive(SiliciumXModule.CLIENT_ASYNC_OCCLUSION_WORKER));
 		assertTrue(compat.isModuleActive(SiliciumXModule.DIAGNOSTICS_TELEMETRY));
-		assertEquals(19, compat.countActive());
+		assertEquals(22, compat.countActive());
 
 		// Sound engine optimization cleanly yields to Sound Physics Remastered
 		ModCompatibility soundCompat = new ModCompatibility(config, "sound_physics_remastered"::equals);
@@ -92,16 +99,34 @@ class ConfigAndCompatibilityTest {
 		assertEquals("sound_physics_remastered", soundCompat.resolution(SiliciumXModule.CLIENT_SOUND_ENGINE_OPT).yieldedToMod());
 		assertTrue(soundCompat.isModuleActive(SiliciumXModule.GPU_SIGN_AND_SHADOW_CULLING));
 
-		// Worldgen & shader compat yield checks
+		// Worldgen, thread pool, startup, HUD & shader compat yield checks
 		ModCompatibility c2meCompat = new ModCompatibility(config, "c2me"::equals);
 		assertFalse(c2meCompat.isModuleActive(SiliciumXModule.WORLDGEN_FAST_PERLIN_NOISE));
 		assertEquals("c2me", c2meCompat.resolution(SiliciumXModule.WORLDGEN_FAST_PERLIN_NOISE).yieldedToMod());
+		assertFalse(c2meCompat.isModuleActive(SiliciumXModule.CPU_THREAD_POOL_TUNING));
+		assertEquals("c2me", c2meCompat.resolution(SiliciumXModule.CPU_THREAD_POOL_TUNING).yieldedToMod());
+
+		ModCompatibility smoothBootCompat = new ModCompatibility(config, "smoothboot"::equals);
+		assertFalse(smoothBootCompat.isModuleActive(SiliciumXModule.CPU_THREAD_POOL_TUNING));
+		assertEquals("smoothboot", smoothBootCompat.resolution(SiliciumXModule.CPU_THREAD_POOL_TUNING).yieldedToMod());
+
+		ModCompatibility lazyDfuCompat = new ModCompatibility(config, "lazydfu"::equals);
+		assertFalse(lazyDfuCompat.isModuleActive(SiliciumXModule.STARTUP_LAZY_DATAFIXER));
+		assertEquals("lazydfu", lazyDfuCompat.resolution(SiliciumXModule.STARTUP_LAZY_DATAFIXER).yieldedToMod());
+
+		ModCompatibility exordiumCompat = new ModCompatibility(config, "exordium"::equals);
+		assertFalse(exordiumCompat.isModuleActive(SiliciumXModule.GPU_HUD_SCOREBOARD_TAB_CACHE));
+		assertEquals("exordium", exordiumCompat.resolution(SiliciumXModule.GPU_HUD_SCOREBOARD_TAB_CACHE).yieldedToMod());
 
 		ModCompatibility irisCompat = new ModCompatibility(config, "iris"::equals);
 		assertFalse(irisCompat.isModuleActive(SiliciumXModule.GPU_WEATHER_CULLING));
 		assertEquals("iris", irisCompat.resolution(SiliciumXModule.GPU_WEATHER_CULLING).yieldedToMod());
 		assertFalse(irisCompat.isModuleActive(SiliciumXModule.CLIENT_ASYNC_OCCLUSION_WORKER));
 		assertEquals("iris", irisCompat.resolution(SiliciumXModule.CLIENT_ASYNC_OCCLUSION_WORKER).yieldedToMod());
+		assertFalse(irisCompat.isModuleActive(SiliciumXModule.GPU_NAMETAG_AND_LAYER_CULLING));
+		assertEquals("iris", irisCompat.resolution(SiliciumXModule.GPU_NAMETAG_AND_LAYER_CULLING).yieldedToMod());
+		assertFalse(irisCompat.isModuleActive(SiliciumXModule.GPU_ITEM_GLINT_AND_LOD_CULLING));
+		assertEquals("iris", irisCompat.resolution(SiliciumXModule.GPU_ITEM_GLINT_AND_LOD_CULLING).yieldedToMod());
 	}
 
 	@Test
@@ -224,6 +249,11 @@ class ConfigAndCompatibilityTest {
 		cfg.particlePhysicsMaxDistance = 999.0;
 		cfg.signTextMaxRenderDistance = 1.0;
 		cfg.entityShadowMaxDistance = 50.0;
+		cfg.nameTagMaxDistance = 1.0;
+		cfg.cosmeticLayerMaxDistance = 500.0;
+		cfg.itemGlintMaxDistance = Double.NaN;
+		cfg.itemFrameItemMaxDistance = 2.0;
+		cfg.hudCacheUpdateIntervalMs = 9999;
 		cfg.maxIdenticalSoundsPerTick = -5;
 		cfg.lightmapEpsilon = Float.NaN;
 		cfg.sanitize();
@@ -232,6 +262,11 @@ class ConfigAndCompatibilityTest {
 		assertEquals(128.0, cfg.particlePhysicsMaxDistance);
 		assertEquals(8.0, cfg.signTextMaxRenderDistance);
 		assertEquals(16.0, cfg.entityShadowMaxDistance);
+		assertEquals(8.0, cfg.nameTagMaxDistance);
+		assertEquals(128.0, cfg.cosmeticLayerMaxDistance);
+		assertEquals(6.0, cfg.itemGlintMaxDistance);
+		assertEquals(12.0, cfg.itemFrameItemMaxDistance);
+		assertEquals(500, cfg.hudCacheUpdateIntervalMs);
 		assertEquals(0, cfg.maxIdenticalSoundsPerTick);
 		assertEquals(0.0f, cfg.lightmapEpsilon);
 

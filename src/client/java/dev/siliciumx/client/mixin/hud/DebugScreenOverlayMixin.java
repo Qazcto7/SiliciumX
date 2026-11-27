@@ -188,6 +188,11 @@ public abstract class DebugScreenOverlayMixin {
 			+ SiliciumXMetrics.get(SiliciumXMetrics.Counter.ENTITIES_CULLED)
 			+ SiliciumXMetrics.get(SiliciumXMetrics.Counter.BLOCK_ENTITIES_CULLED)
 			+ SiliciumXMetrics.get(SiliciumXMetrics.Counter.SIGN_TEXT_PASSES_SKIPPED)
+			+ SiliciumXMetrics.get(SiliciumXMetrics.Counter.NAMETAGS_CULLED)
+			+ SiliciumXMetrics.get(SiliciumXMetrics.Counter.COSMETIC_LAYERS_CULLED)
+			+ SiliciumXMetrics.get(SiliciumXMetrics.Counter.ITEM_GLINTS_CULLED)
+			+ SiliciumXMetrics.get(SiliciumXMetrics.Counter.ITEM_STACKS_SIMPLIFIED)
+			+ SiliciumXMetrics.get(SiliciumXMetrics.Counter.ITEM_FRAME_ITEMS_CULLED)
 			+ SiliciumXMetrics.get(SiliciumXMetrics.Counter.WEATHER_COLUMNS_SKIPPED)
 			+ SiliciumXMetrics.get(SiliciumXMetrics.Counter.SOUNDS_CULLED);
 		long lmSkipped = SiliciumXMetrics.get(SiliciumXMetrics.Counter.LIGHTMAP_PASSES_SKIPPED);
